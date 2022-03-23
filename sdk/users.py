@@ -1,4 +1,5 @@
 import time
+import uuid
 from .utils.data import retrieve_documents, delete_documents, insert_documents, update_documents
 from .utils.hash import hash_password
 from .utils.exceptions import InavlidPasswordException, LoginAlreadyExistsException, UserDoesNotExistException, CannotDeleteUserException

@@ -1,7 +1,7 @@
 import time
 import uuid
-from utils.data import retrieve_documents, delete_documents, insert_documents, update_documents
-from utils.exceptions import ProjectNameAlreadyExistsException
+from .utils.data import retrieve_documents, delete_documents, insert_documents, update_documents
+from .utils.exceptions import ProjectNameAlreadyExistsException
 
 
 def create_project(name: str, account_type: str, account_login: str, account_avatar_url: str, tags: list = None, description: str = None):

@@ -1,7 +1,7 @@
 import time
-from utils.data import retrieve_documents, delete_documents, insert_documents, update_documents
-from utils.hash import hash_password
-from utils.exceptions import InavlidPasswordException, LoginAlreadyExistsException, UserDoesNotExistException, CannotDeleteUserException
+from .utils.data import retrieve_documents, delete_documents, insert_documents, update_documents
+from .utils.hash import hash_password
+from .utils.exceptions import InavlidPasswordException, LoginAlreadyExistsException, UserDoesNotExistException, CannotDeleteUserException
 
 
 def create_user(login: str, password: str, email: str) -> None:

@@ -18,3 +18,8 @@ class CannotDeleteUserException(Exception):
 
 class ProjectNameAlreadyExistsException(Exception):
     pass
+
+
+# Clusters + Runners
+class RunnersClusterNameAlreadyExistsException(Exception):
+    pass

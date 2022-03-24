@@ -30,6 +30,7 @@ def create_project(name: str, account_type: str, account_login: str, account_ava
 
 
                 # settings
+                "runnerClusters": [],
                 "environment": {},
                 "deploymentTriggerWebhooks": [],
                 "previewImage": None,
@@ -38,7 +39,7 @@ def create_project(name: str, account_type: str, account_login: str, account_ava
                 "domains":[],
                 "deploymentHooks":{},
 
-                "logActivityFor": ["newDeployment", "deleteDeployment", "updateSettings"]
+                "logActivityFor": ["newDeployment", "deleteDeployment", "updateSettings"],
             }
         ])
 

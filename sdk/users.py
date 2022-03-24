@@ -13,49 +13,51 @@ def create_user(login: str, password: str, email: str) -> None:
     same_login_name = bool(retrieve_documents(
         "accounts", "users", {"login": login}))
     if not same_login_name:
-        insert_documents("accounts", "users", [
-            {
-                "type": "user",
-                "id": str(uuid.uuid4()),
-                "login": login,
-                "password": hash_password(password).decode("utf-8"),
-                # account info
-                "email": email,
-                "verified": False,
-                "emailVerificationId": str(uuid.uuid4()),
-                "updatedAt": int(time.time()),
-                "createdAt": int(time.time()),
+        user = {
+            "type": "user",
+            "id": str(uuid.uuid4()),
+            "login": login,
+            "password": hash_password(password).decode("utf-8"),
+            # account info
+            "email": email,
+            "verified": False,
+            "emailVerificationId": str(uuid.uuid4()),
+            "updatedAt": int(time.time()),
+            "createdAt": int(time.time()),
 
-                # Settings
-                # notifications
-                "defaultNotificationsEmail": email,
-                "sendNotificationFor": ["newActivity"],
-                "totalProjects": 0,
-                "totalRunners": 0,
-                "avatarUrl": None,
-                # customization
-                "username": login,
-                "language": None,
-                "appearance": None,
-                # automization
-                "githubAccountToken": None,
-                "gitlabAccountToken": None,
-                "bitbucketAccountToken": None,
-                # payment
-                "stripeUserId": None
+            # Settings
+            # notifications
+            "defaultNotificationsEmail": email,
+            "sendNotificationFor": ["newActivity"],
+            "totalProjects": 0,
+            "totalRunners": 0,
+            "avatarUrl": None,
+            # customization
+            "username": login,
+            "language": None,
+            "appearance": None,
+            # automization
+            "githubAccountToken": None,
+            "gitlabAccountToken": None,
+            "bitbucketAccountToken": None,
+            # payment
+            "stripeUserId": None
 
-            }])
+        }
+        insert_documents("accounts", "users", [user])
+        return user
 
     else:
         raise LoginAlreadyExistsException
 
 
-def get_user(login: str) -> dict:
+def get_user(login: str, return_secret_data: bool = False) -> dict:
 
     res = retrieve_documents(
         "accounts", "users", {"login": login})[0]
     del res["_id"]  # yes this is required.
-    del res["password"]
+    if not return_secret_data:
+        del res["password"]
     return res
 
 

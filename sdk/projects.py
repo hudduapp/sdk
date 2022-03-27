@@ -59,8 +59,6 @@ def get_projects(account_id: str, return_secret_data: bool = False):
         if not return_secret_data:
             project["environment"] = [
                 k for k, _v in project["environment"].items()]
-            project["deploymentTriggerWebhooks"] = [
-                k for k, _v in project["deploymentTriggerWebhooks"].items()]
         res.append(project)
 
     return res
@@ -73,8 +71,6 @@ def get_project(id: str, return_secret_data: bool = False):
 
     if not return_secret_data:
         res["environment"] = [k for k, _v in res["environment"].items()]
-        res["deploymentTriggerWebhooks"] = [
-            k for k, _v in res["deploymentTriggerWebhooks"].items()]
 
     return res
 

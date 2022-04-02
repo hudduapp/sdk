@@ -10,7 +10,15 @@ from .utils.exceptions import ProjectNameAlreadyExistsException
 
 
 def create_project(
-    name: str, account_id: str, tags: list = None, description: str = None
+    name: str,
+    account_id: str,
+    tags: list = None,
+    description: str = None,
+    git_provider: str = None,
+    repository: str = None,
+    branch: str = None,
+    deploy_on: list = [],
+    config: dict = {},
 ):
     """
     Create a new project for an organization/user
@@ -31,11 +39,11 @@ def create_project(
                     "updatedAt": int(time.time()),
                     "createdAt": int(time.time()),
                     # source code from where exactly?!
-                    "gitProvider": None,
-                    "repository": None,
-                    "branch": "main",
-                    "deployOn": ["push", "pull"],
-                    "config": {"source": ""},  # or local config
+                    "gitProvider": git_provider,
+                    "repository": repository,
+                    "branch": branch,
+                    "deployOn": deploy_on,
+                    "config": config,  # or local config
                     # settings
                     "runnerClusters": [],
                     "environment": {},

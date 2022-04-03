@@ -1,2 +1,4 @@
 requests
 bcrypt
+uuid
+secrets

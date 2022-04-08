@@ -11,12 +11,12 @@ from .utils.data import (
 def register(node_id: str, region: str, api_endpoint: str) -> None:
 
     same_runner_registered = retrieve_documents(
-        "cluster", "cluster", {"nodeId": node_id}
+        "clusters", "clusters", {"nodeId": node_id}
     )
     if not same_runner_registered:
         insert_documents(
-            "cluster",
-            "cluster",
+            "clusters",
+            "clusters",
             [
                 {
                     "type": "runner",
@@ -41,7 +41,7 @@ def create_deployment(
     expose: dict,
 ) -> None:
     """
-    Create a new runner_cluster for an organization/user
+    Create a new deployment for an organization/user
     """
 
     insert_documents(

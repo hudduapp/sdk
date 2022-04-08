@@ -8,16 +8,38 @@ from .utils.data import (
 )
 
 
+def register(node_id: str, region: str, api_endpoint: str) -> None:
+
+    same_runner_registered = retrieve_documents(
+        "cluster", "cluster", {"nodeId": node_id}
+    )
+    if not same_runner_registered:
+        insert_documents(
+            "cluster",
+            "cluster",
+            [
+                {
+                    "type": "runner",
+                    "nodeId": node_id,
+                    "region": region,
+                    "apiEndpoint": api_endpoint,
+                }
+            ],
+        )
+
+
 def create_deployment(
     name: str,
     account_id: str,
+    project: str,
     build_command: str,
     pre_build_command: str,
     node_id: str,
+    container_id: str,
     region: str,
     environment: dict,
     expose: dict,
-):
+) -> None:
     """
     Create a new runner_cluster for an organization/user
     """
@@ -30,14 +52,26 @@ def create_deployment(
                 "type": "deployment",
                 "id": str(uuid.uuid4()),
                 "accountId": account_id,
+                "project": project,
                 "name": name,
-                "updatedAt": int(time.time()),
                 "createdAt": int(time.time()),
+                "containerId": container_id,
                 "environment": {},
                 "expose": expose,
             }
         ],
     )
+
+
+def get_deployments(query: dict):
+    res = []
+    deployments = retrieve_documents("projects", "deployments", query)
+
+    for project in deployments:
+        del project["_id"]
+        res.append(project)
+
+    return res
 
 
 def get_deployment(id: str):

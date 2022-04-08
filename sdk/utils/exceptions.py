@@ -16,10 +16,6 @@ class CannotDeleteUserException(Exception):
 
 # Projects
 
+
 class ProjectNameAlreadyExistsException(Exception):
-    pass
-
-
-# Clusters + Runners
-class RunnersClusterNameAlreadyExistsException(Exception):
     pass

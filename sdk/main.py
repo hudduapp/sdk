@@ -1,25 +1,12 @@
-from sdk.projects import get_project, create_project, list_projects, update_project
+from sdk.projects import Projects
+from sdk.services import Services
+from sdk.users import Users
+from sdk.deployments import Deployments
 
 
 class Data:
     def __init__(self, token: str) -> None:
+        outer_self = self
         self.token = token
-
-    class Projects:
-        def __init__(self, account_id: str) -> None:
-            self.account_id = account_id
-
-        def create(**args):
-            create_project(account_id=account_id, **args)
-
-        def get(**args):
-            get_project(account_id=account_id, **args)
-
-        def list(**args):
-            get_projects(account_id=account_id, **args)
-
-        def update(**args):
-            update_project(account_id=account_id, **args)
-
-        def delete(**args):
-            print("-- dummy")
+        self.deployments = Deployments(self.token)
+        self.projects = Projects(self.token)

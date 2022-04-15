@@ -1,80 +1,75 @@
 import time
 import uuid
-from .utils.data import retrieve_documents, delete_documents, insert_documents, update_documents
+from .utils.data import WarehouseConnector
 from .utils.hash import hash_password
-from .utils.exceptions import InavlidPasswordException, LoginAlreadyExistsException, UserDoesNotExistException, CannotDeleteUserException
+from .utils.exceptions import LoginAlreadyExistsException
 
 
-def create_user(login: str, password: str, email: str) -> None:
-    """
-    Create a new user for specified login, password and email.
-    """
+class Users:
+    def __init__(self, token: str):
+        self.db = WarehouseConnector("accounts", "users", token=token)
+        self.token = token
 
-    same_login_name = bool(retrieve_documents(
-        "accounts", "users", {"login": login}))
-    if not same_login_name:
-        user = {
-            "type": "user",
-            "id": str(uuid.uuid4()),
-            "login": login,
-            "password": hash_password(password).decode("utf-8"),
-            # account info
-            "email": email,
-            "verified": False,
-            "emailVerificationId": str(uuid.uuid4()),
-            "updatedAt": int(time.time()),
-            "createdAt": int(time.time()),
+    def create(self, login: str, password: str, email: str) -> dict:
+        same_login_name = bool(self.db.retrieve({"login": login}))
+        if not same_login_name:
+            user = {
+                "type": "user",
+                "id": str(uuid.uuid4()),
+                "login": login,
+                "password": hash_password(password).decode("utf-8"),
+                # account info
+                "email": email,
+                "verified": False,
+                "emailVerificationId": str(uuid.uuid4()),
+                "updatedAt": int(time.time()),
+                "createdAt": int(time.time()),
+                # Settings
+                # notifications
+                "defaultNotificationsEmail": email,
+                "sendNotificationFor": ["newActivity"],
+                "avatarUrl": None,
+                # customization
+                "username": login,
+                "language": None,
+                "appearance": None,
+                # automization
+                "githubAccountToken": None,
+                "gitlabAccountToken": None,
+                "bitbucketAccountToken": None,
+                # payment
+                "stripeUserId": None,
+            }
+            self.db.insert([user])
+            return user
+        else:
+            raise LoginAlreadyExistsException
 
-            # Settings
-            # notifications
-            "defaultNotificationsEmail": email,
-            "sendNotificationFor": ["newActivity"],
-            "totalProjects": 0,
-            "totalRunners": 0,
-            "avatarUrl": None,
-            # customization
-            "username": login,
-            "language": None,
-            "appearance": None,
-            # automization
-            "githubAccountToken": None,
-            "gitlabAccountToken": None,
-            "bitbucketAccountToken": None,
-            # payment
-            "stripeUserId": None
+    def list(self, query: dict) -> list:
+        res = []
+        users = self.db.retrieve(query)
 
-        }
-        insert_documents("accounts", "users", [user])
-        return user
+        for user in users:
+            del user["_id"]
+            res.append(user)
 
-    else:
-        raise LoginAlreadyExistsException
+        return res
 
+    def get(self, query: dict) -> dict:
+        res = self.db.retrieve(query)[0]
+        del res["_id"]
 
-def get_user(login: str, return_secret_data: bool = False) -> dict:
+        return res
 
-    res = retrieve_documents(
-        "accounts", "users", {"login": login})[0]
-    del res["_id"]  # yes this is required.
-    if not return_secret_data:
-        del res["password"]
-    return res
+    def update(self, query: dict, update: dict) -> dict:
+        user = get(query)
+        new_data = {**user, **update}
 
+        if "password" in kwargs:
+            new_data["password"] = hash_password(kwargs["password"]).decode("utf-8")
 
-def update_user(login: str, **kwargs) -> None:
-    user = get_user(login)
-    new_data = {**user, **kwargs}
+        self.db.update(query, {"$set": new_data})
+        return new_data
 
-    if "password" in kwargs:
-        new_data["password"] = hash_password(
-            kwargs["password"]).decode("utf-8")
-
-    update_documents("accounts", "users", {"login": login}, {"$set": new_data})
-
-
-def delete_user(login: str) -> None:
-    user = get_user(login)
-    if (user["totalRunners"] == 0) and (user["totalProjects"] == 0):
-        delete_documents("accounts", "users", {"login": login})
-    else:
-        raise CannotDeleteUserException
+    def delete(self, query: dict) -> None:
+        self.db.delete(query)

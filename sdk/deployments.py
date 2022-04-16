@@ -1,6 +1,6 @@
 import time
 import uuid
-from .utils.data import WarehouseConnector
+
 from .templates import Template
 
 

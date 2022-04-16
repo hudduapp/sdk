@@ -21,5 +21,8 @@ class Data:
         self.users = Users(self.token)
         # todo: orgs
 
+        # clusters
+        self.clusters = Cluster(self.token)
+
     def health(self):
         return self.db.health()

@@ -1,8 +1,9 @@
 import time
 import uuid
-from .utils.data import WarehouseConnector
+
 from .utils.hash import hash_password
 from .utils.exceptions import LoginAlreadyExistsException
+
 from .templates import Template
 
 

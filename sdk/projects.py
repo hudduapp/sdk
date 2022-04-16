@@ -2,7 +2,6 @@ import time
 import uuid
 
 from .templates import Template
-from .utils.data import WarehouseConnector
 from .utils.exceptions import ProjectNameAlreadyExistsException
 
 

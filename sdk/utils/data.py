@@ -1,6 +1,8 @@
 import requests
 import json
 
+from .exceptions import InvalidPermissionsException
+
 
 class WarehouseConnector:
     def __init__(
@@ -20,33 +22,52 @@ class WarehouseConnector:
         }
 
     def insert(self, documents: list) -> None:
-        requests.request(
-            "POST",
-            f"{self.base_url}/databases/{self.database}/collections/{self.collection}",
-            data=json.dumps({"documents": documents}),
-            headers=self.headers,
-        )
+        try:
+            requests.request(
+                "POST",
+                f"{self.base_url}/databases/{self.database}/collections/{self.collection}",
+                data=json.dumps({"documents": documents}),
+                headers=self.headers,
+            )
+        except:
+            raise InvalidPermissionsException
 
     def delete(self, query: dict) -> None:
-        requests.request(
-            "POST",
-            f"{self.base_url}/databases/{self.database}/collections/{self.collection}",
-            data=json.dumps({"query": query}),
-            headers=self.headers,
-        )
+        try:
+            requests.request(
+                "POST",
+                f"{self.base_url}/databases/{self.database}/collections/{self.  collection}",
+                data=json.dumps({"query": query}),
+                headers=self.headers,
+            )
+        except:
+            raise InvalidPermissionsException
 
     def retrieve(self, query: dict) -> list:
-        return requests.request(
-            "GET",
-            f"{self.base_url}/databases/{self.database}/collections/{self.collection}",
-            data=json.dumps({"query": query}),
-            headers=self.headers,
-        ).json()["items"]
+        try:
+            return requests.request(
+                "GET",
+                f"{self.base_url}/databases/{self.database}/collections/{self.collection}",
+                data=json.dumps({"query": query}),
+                headers=self.headers,
+            ).json()["items"]
+        except:
+            raise InvalidPermissionsException
 
     def update(self, query: dict, update: dict) -> None:
-        res = requests.request(
-            "PUT",
-            f"{self.base_url}/databases/{self.database}/collections/{self.collection}",
-            data=json.dumps({"query": query, "update": update}),
+        try:
+            requests.request(
+                "PUT",
+                f"{self.base_url}/databases/{self.database}/collections/{self.collection}",
+                data=json.dumps({"query": query, "update": update}),
+                headers=self.headers,
+            )
+        except:
+            raise InvalidPermissionsException
+
+    def health(self) -> dict:
+        return requests.request(
+            "GET",
+            f"{self.base_url}/health",
             headers=self.headers,
-        )
+        ).json()

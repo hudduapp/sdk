@@ -6,9 +6,8 @@ from .utils.data import WarehouseConnector
 
 
 class Services(Template):
-    def __init__(self, token: str):
-        print("hey")
-        super(Template, self).__init__(token, "projects", "services")
+    def __init__(self, token: str) -> None:
+        super().__init__(token, "projects", "services")
 
     def create(
         self, name: str, project_id: str, account_id: str, config: dict = {}

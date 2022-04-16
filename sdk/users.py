@@ -3,12 +3,12 @@ import uuid
 from .utils.data import WarehouseConnector
 from .utils.hash import hash_password
 from .utils.exceptions import LoginAlreadyExistsException
+from .templates import Template
 
 
-class Users:
-    def __init__(self, token: str):
-        self.db = WarehouseConnector("accounts", "users", token=token)
-        self.token = token
+class Users(Template):
+    def __init__(self, token: str) -> None:
+        super().__init__(token, "accounts", "users")
 
     def create(self, login: str, password: str, email: str) -> dict:
         same_login_name = bool(self.db.retrieve({"login": login}))
@@ -45,31 +45,12 @@ class Users:
         else:
             raise LoginAlreadyExistsException
 
-    def list(self, query: dict) -> list:
-        res = []
-        users = self.db.retrieve(query)
-
-        for user in users:
-            del user["_id"]
-            res.append(user)
-
-        return res
-
-    def get(self, query: dict) -> dict:
-        res = self.db.retrieve(query)[0]
-        del res["_id"]
-
-        return res
-
     def update(self, query: dict, update: dict) -> dict:
-        user = get(query)
+        user = self.get(query)
         new_data = {**user, **update}
 
-        if "password" in kwargs:
-            new_data["password"] = hash_password(kwargs["password"]).decode("utf-8")
+        if "password" in update:
+            new_data["password"] = hash_password(update["password"]).decode("utf-8")
 
         self.db.update(query, {"$set": new_data})
         return new_data
-
-    def delete(self, query: dict) -> None:
-        self.db.delete(query)

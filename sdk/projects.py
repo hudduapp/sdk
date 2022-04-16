@@ -7,7 +7,7 @@ from .utils.exceptions import ProjectNameAlreadyExistsException
 
 
 class Projects(Template):
-    def __init__(self, token):
+    def __init__(self, token: str) -> None:
         super().__init__(token, "projects", "projects")
 
     def create(

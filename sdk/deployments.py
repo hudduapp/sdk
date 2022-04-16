@@ -5,7 +5,7 @@ from .templates import Template
 
 
 class Deployments(Template):
-    def __init__(self, token):
+    def __init__(self, token: str) -> None:
         super().__init__(token, "projects", "deployments")
 
     def create(

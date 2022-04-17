@@ -1,7 +1,7 @@
 import time
 import uuid
 
-from .templates import Template
+from ..templates import Template
 
 
 class Deployments(Template):

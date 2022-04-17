@@ -1,9 +1,10 @@
-from sdk.projects import Projects
-from sdk.services import Services
-from sdk.users import Users
-from sdk.deployments import Deployments
+from .data.projects import Projects
+from .data.services import Services
+from .data.users import Users
+from .data.deployments import Deployments
+from .data.clusters import Clusters
 
-from sdk.utils.data import WarehouseConnector
+from .utils.data import WarehouseConnector
 
 
 class Data:
@@ -22,7 +23,7 @@ class Data:
         # todo: orgs
 
         # clusters
-        self.clusters = Cluster(self.token)
+        self.clusters = Clusters(self.token)
 
     def health(self):
         return self.db.health()

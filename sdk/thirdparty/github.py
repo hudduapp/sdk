@@ -20,3 +20,12 @@ class Github:
             params=json.dumps(query),
             headers=self.headers,
         ).json()
+
+    def get_repository_branches(self, repo_name: str) -> dict:
+        login = self.get_current_github_user()["login"]
+        return requests.request(
+            "GET",
+            f"https://api.github.com/users/{login}/{repo_name}/branches",
+            params=json.dumps(query),
+            headers=self.headers,
+        ).json()

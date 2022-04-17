@@ -1,10 +1,10 @@
 import time
 import uuid
 
-from .utils.hash import hash_password
-from .utils.exceptions import LoginAlreadyExistsException
+from ..utils.hash import hash_password
+from ..utils.exceptions import LoginAlreadyExistsException
 
-from .templates import Template
+from ..templates import Template
 
 
 class Users(Template):

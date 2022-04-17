@@ -1,8 +1,8 @@
 import time
 import uuid
 
-from .templates import Template
-from .utils.exceptions import ProjectNameAlreadyExistsException
+from ..templates import Template
+from ..utils.exceptions import ProjectNameAlreadyExistsException
 
 
 class Projects(Template):

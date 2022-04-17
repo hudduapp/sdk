@@ -25,7 +25,6 @@ class Github:
         login = self.get_current_github_user()["login"]
         return requests.request(
             "GET",
-            f"https://api.github.com/users/{login}/{repo_name}/branches",
-            params=json.dumps(query),
+            f"https://api.github.com/repos/{login}/{repo_name}/branches",
             headers=self.headers,
         ).json()

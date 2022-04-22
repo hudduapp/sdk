@@ -8,7 +8,7 @@ from ..utils.exceptions import ProjectNameAlreadyExistsException
 
 class AuthTokens(Template):
     def __init__(self, token: str) -> None:
-        super().__init__(token, "projects", "projects")
+        super().__init__(token, "authentication", "tokens")
 
     def create(
         self,

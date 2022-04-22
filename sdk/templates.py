@@ -24,9 +24,9 @@ class Template:
         self.db.insert([item])
         return item
 
-    def list(self, query: dict) -> list:
+    def list(self, query: dict, limit: int = 25, skip: int = 0) -> list:
         res = []
-        items = self.db.retrieve(query)
+        items = self.db.retrieve(query, limit, skip)
 
         for item in items:
             del item["_id"]

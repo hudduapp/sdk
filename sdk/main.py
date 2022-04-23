@@ -15,7 +15,7 @@ class Data:
         self.db = WarehouseConnector("dummy", "dummy", self.token)
 
         # internal use only
-        self.tokens = Tokens(self.tokens)
+        self.tokens = Tokens(self.token)
 
         # projects
         self.projects = Projects(self.token)

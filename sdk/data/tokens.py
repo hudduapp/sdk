@@ -14,6 +14,7 @@ class Tokens(Template):
         self,
         account_id: str,
         description: str = None,
+        scopes: list = [],
         expires_at: int = None,
         meta: dict = {},
     ) -> dict:
@@ -23,6 +24,7 @@ class Tokens(Template):
             "accountId": account_id,
             "token": secrets.token_hex(32),
             "description": description,
+            "scopes": scopes,
             "meta": meta,
             "expiresAt": expires_at,
             "createdAt": int(time.time()),

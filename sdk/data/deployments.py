@@ -30,10 +30,14 @@ class Deployments(Template):
                     "project": project,
                     "service": service,
                     "name": name,
-                    "createdAt": int(time.time()),
                     "containerId": container_id,
+                    "region": region,
+                    "nodeId": node_id,
+                    "buildCommand": build_command,
+                    "preBuildCommand": pre_build_command,
                     "environment": {},
                     "expose": expose,
+                    "createdAt": int(time.time()),
                 }
             ],
         )

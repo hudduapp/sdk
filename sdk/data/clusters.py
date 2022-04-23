@@ -8,7 +8,7 @@ class Clusters(Template):
     def __init__(self, token: str) -> None:
         super().__init__(token, "clusters", "clusters")
 
-    def register(self, node_id: str, region: str, api_endpoint: str) -> dict:
+    def register(self, node_id: str, region: str, api_endpoints: dict) -> dict:
         """
         Only registers a cluster if it doesn't already exist
         """
@@ -20,7 +20,7 @@ class Clusters(Template):
                 "type": "cluster",
                 "nodeId": node_id,
                 "region": region,
-                "apiEndpoint": api_endpoint,
+                "apiEndpoints": api_endpoints,
             }
             self.db.insert([cluster])
 

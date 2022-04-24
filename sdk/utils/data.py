@@ -36,7 +36,7 @@ class WarehouseConnector:
         try:
             requests.request(
                 "POST",
-                f"{self.base_url}/databases/{self.database}/collections/{self.  collection}",
+                f"{self.base_url}/databases/{self.database}/collections/{self.collection}",
                 data=json.dumps({"query": query}),
                 headers=self.headers,
             )

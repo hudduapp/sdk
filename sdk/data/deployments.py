@@ -41,29 +41,3 @@ class Deployments(Template):
                 }
             ],
         )
-
-    def list(self, query: dict) -> list:
-        res = []
-        deployments = self.db.retrieve(query)
-
-        for deployment in deployments:
-            del deployment["_id"]
-            res.append(deployment)
-
-        return res
-
-    def get(self, query: dict) -> dict:
-        res = self.db.retrieve(query)[0]
-        del res["_id"]
-
-        return res
-
-    def update(self, query: dict, update: dict) -> dict:
-        deployment = self.get(query)
-        new_data = {**deployment, **update}
-
-        self.db.update(query, {"$set": new_data})
-        return new_data
-
-    def delete(self, query: dict) -> None:
-        self.db.delete(query)

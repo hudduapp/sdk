@@ -13,7 +13,7 @@ class Clusters(Template):
         Only registers a cluster if it doesn't already exist
         """
 
-        same_runner_registered = self.db.retieve({"nodeId": node_id})
+        same_runner_registered = self.db.retrieve({"nodeId": node_id})
 
         if not same_runner_registered:
             cluster = {

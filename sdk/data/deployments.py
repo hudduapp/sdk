@@ -9,6 +9,7 @@ class Deployments(Template):
         super().__init__(token, "projects", "deployments")
 
     def create(
+        self,
         name: str,
         account_id: str,
         project: str,
@@ -21,23 +22,23 @@ class Deployments(Template):
         environment: dict,
         expose: dict,
     ) -> None:
+        deployment = {
+            "type": "deployment",
+            "id": str(uuid.uuid4()),
+            "accountId": account_id,
+            "project": project,
+            "service": service,
+            "name": name,
+            "containerId": container_id,
+            "region": region,
+            "nodeId": node_id,
+            "buildCommand": build_command,
+            "preBuildCommand": pre_build_command,
+            "environment": {},
+            "expose": expose,
+            "createdAt": int(time.time()),
+        }
         self.db.insert(
-            [
-                {
-                    "type": "deployment",
-                    "id": str(uuid.uuid4()),
-                    "accountId": account_id,
-                    "project": project,
-                    "service": service,
-                    "name": name,
-                    "containerId": container_id,
-                    "region": region,
-                    "nodeId": node_id,
-                    "buildCommand": build_command,
-                    "preBuildCommand": pre_build_command,
-                    "environment": {},
-                    "expose": expose,
-                    "createdAt": int(time.time()),
-                }
-            ],
+            [deployment],
         )
+        return deployment

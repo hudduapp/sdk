@@ -1,5 +1,4 @@
 import requests
-import json
 
 
 class Github:
@@ -12,19 +11,11 @@ class Github:
             "GET", "https://api.github.com/user", headers=self.headers
         ).json()
 
-    def get_repositories(self, query: dict = {}) -> dict:
+    def search(self, path: str, query: dict):
         login = self.get_current_github_user()["login"]
         return requests.request(
             "GET",
-            f"https://api.github.com/users/{login}/repos",
-            params=json.dumps(query),
-            headers=self.headers,
-        ).json()
-
-    def get_repository_branches(self, repo_name: str) -> dict:
-        login = self.get_current_github_user()["login"]
-        return requests.request(
-            "GET",
-            f"https://api.github.com/repos/{login}/{repo_name}/branches",
+            f"https://api.github.com/search{path}",
+            params=query,
             headers=self.headers,
         ).json()

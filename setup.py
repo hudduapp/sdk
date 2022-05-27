@@ -5,7 +5,8 @@ import sdk
 install_requires = [
     "requests~=2.27.1",
     "bcrypt~=3.2.2",
-    "uuid~=1.30"
+    "uuid~=1.30",
+    "redis~=4.3.1"
 ]  # keep this up to date
 
 

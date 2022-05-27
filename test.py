@@ -1,6 +1,7 @@
-from sdk.thirdparty.clusters_v1 import Cluster
+from sdk.thirdparty.proxy import Proxy
 
-_a = Cluster("abcde", "http://localhost:5555")
+_a = Proxy(
+    "redis://default:B106tQW3mK0DGORzEEcgkYUZiDgzOxlg@redis-15590.c13.us-east-1-3.ec2.cloud.redislabs.com:15590/0")
 
 # print(_a.create_deployment(
 #     "echo hello",
@@ -9,4 +10,4 @@ _a = Cluster("abcde", "http://localhost:5555")
 #     "12bc5098-59a1-4542-853c-37195a8e78ad",  # service
 # ))
 
-print(_a.get_deployment("b7df4d9d-0e41-474c-9041-a95ac75187eb"))
+print(_a.create_or_update_proxy_route())

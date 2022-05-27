@@ -22,8 +22,8 @@ setup(
     url='https://github.com/hudduapp/sdk',
     author=sdk.__author__,
     author_email="some@mail.com",
-    packages=["sdk", "sdk.thirdparty", "sdk.utils"],
-   # python_requires=">=3.7",
+    packages=["sdk"],
+    python_requires=">=3.7",
     install_requires=install_requires,
     project_urls={
         "GitHub": "https://github.com/hudduapp/sdk",

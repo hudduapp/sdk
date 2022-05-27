@@ -1,7 +1,6 @@
-from sdk.main import Data
 from sdk.thirdparty.clusters_v1 import Cluster
 
-_a = Cluster("http://localhost:5555")
+_a = Cluster("abcde", "http://localhost:5555")
 
 # print(_a.create_deployment(
 #     "echo hello",
@@ -10,4 +9,4 @@ _a = Cluster("http://localhost:5555")
 #     "12bc5098-59a1-4542-853c-37195a8e78ad",  # service
 # ))
 
-print(_a.get_deployments(limit=10))
+print(_a.get_deployment("b7df4d9d-0e41-474c-9041-a95ac75187eb"))

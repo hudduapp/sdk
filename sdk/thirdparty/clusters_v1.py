@@ -27,7 +27,10 @@ class Cluster:
             f"{self.base_url}{path}",
             data=json.dumps(data),
             params=params,
-            headers={"Content-Type": "application/json"},
+            headers={
+                "Content-Type": "application/json",
+                "Service-Token": self.token
+            },
         ).json()
 
     # create

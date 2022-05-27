@@ -4,8 +4,17 @@ import requests
 
 
 class Cluster:
-    def __init__(self, url: str):
-        self.url = url
+    def __init__(self, token: str, base_url: str):
+
+        """
+        The base_url specifies the clusters base endpoint e.g.: http://localhost:5555 (no trailing slash).
+        The token is service specific
+        @param token:
+        @param base_url:
+        """
+
+        self.base_url = base_url
+        self.token = token
 
     def _request(self, method: str, path: str, data=None, params=None) -> dict:
         if params is None:
@@ -15,7 +24,7 @@ class Cluster:
 
         return requests.request(
             method,
-            f"{self.url}{path}",
+            f"{self.base_url}{path}",
             data=json.dumps(data),
             params=params,
             headers={"Content-Type": "application/json"},

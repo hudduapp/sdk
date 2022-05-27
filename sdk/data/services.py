@@ -1,3 +1,4 @@
+import secrets
 import time
 import uuid
 
@@ -9,7 +10,7 @@ class Services(Template):
         super().__init__(token, "projects", "services")
 
     def create(
-        self, name: str, project_id: str, account_id: str, config: dict = {}
+            self, name: str, project_id: str, account_id: str, config: dict = {}
     ) -> dict:
         service = {
             "type": "service",
@@ -17,12 +18,11 @@ class Services(Template):
             "accountId": account_id,
             "name": name,
             "project": project_id,
-            "deployment": None,
             "updatedAt": int(time.time()),
             "createdAt": int(time.time()),
             "status": "CREATED",
-            "currentDeployment": None,
-            "config": config,
+            "token": secrets.token_hex(32),  # used on deployments for auth
+            "config": config,  # config holds build_command pre_build_command etc...
         }
         self.db.insert([service])
 

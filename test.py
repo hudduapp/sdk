@@ -1,7 +1,7 @@
 from sdk.thirdparty.proxy import Proxy
 
 _a = Proxy(
-    "redis://default:B106tQW3mK0DGORzEEcgkYUZiDgzOxlg@redis-15590.c13.us-east-1-3.ec2.cloud.redislabs.com:15590/0")
+    "some_token")
 
 # print(_a.create_deployment(
 #     "echo hello",

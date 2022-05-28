@@ -13,18 +13,18 @@ class Proxy:
         self.url = url
         self.db = redis.from_url(url)
 
-    def create_or_update_proxy_route(self, target_domain: str, source_domain: str, fallback_domain: str,
+    def create_or_update_proxy_route(self, target_domain: str, source_domain: str, fallback_domains: list,
                                      ) -> dict:
         """
         ssl will be handled by a *.domain.ending cert
+        @param fallback_domains:
         @param target_domain:
         @param source_domain:
-        @param fallback_domain:
         @return:
         """
         config = {
             "sourceDomain": source_domain,
-            "fallbackDomain": fallback_domain
+            "fallbackDomains": fallback_domains
         }
         self.db.set(target_domain, config)
         return config

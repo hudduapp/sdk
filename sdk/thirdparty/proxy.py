@@ -1,4 +1,5 @@
 import ast
+import json
 
 import redis
 
@@ -26,7 +27,7 @@ class Proxy:
             "sourceDomain": source_domain,
             "fallbackDomains": fallback_domains
         }
-        self.db.set(target_domain, config)
+        self.db.set(target_domain, json.dumps(config))  # redis only takes bytes or strings
         return config
 
     def get_route(self, domain: str) -> dict:

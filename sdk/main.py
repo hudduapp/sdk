@@ -1,6 +1,7 @@
 from .data.clusters import Clusters
 from .data.deployments import Deployments
 from .data.projects import Projects
+from .data.routes import Routes
 from .data.services import Services
 from .data.tokens import Tokens
 from .data.users import Users
@@ -20,6 +21,9 @@ class Data:
         self.deployments = Deployments(self.token)
         self.services = Services(self.token)
 
+        # router
+        self.routes = Routes(self.token)
+        
         # accounts
         self.users = Users(self.token)
         # todo: orgs

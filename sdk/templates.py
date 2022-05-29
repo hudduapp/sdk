@@ -4,7 +4,7 @@ from .utils.exceptions import DbConnectionRequiredException
 
 class Template:
     def __init__(
-        self, token: str, database: str, collection: str, schema=lambda: {}
+            self, token: str, database: str, collection: str, schema=lambda: {}
     ) -> None:
         if not collection or not database:
             raise DbConnectionRequiredException

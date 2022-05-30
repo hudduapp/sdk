@@ -13,8 +13,7 @@ class Data:
     def __init__(self, warehouse_token: str, warehouse_url: str = "https://data.huddu.io") -> None:
         self.warehouse_token = warehouse_token
         self.warehouse_url = warehouse_url
-        self.redis_uri = redis_uri
-
+        
         self.db = WarehouseConnector("dummy", "dummy", self.warehouse_token)
 
         # internal use only

@@ -10,8 +10,15 @@ class Projects(Template):
         super().__init__(token, "projects", "projects")
 
     def create(
-        self, name: str, account_id: str, tags: list = None, description: str = None
+            self, name: str, account_id: str, tags: list = None, description: str = None
     ) -> dict:
+        """
+        @param name:
+        @param account_id:
+        @param tags:
+        @param description:
+        @return:
+        """
         same_project_name = bool(self.db.retrieve({"name": name}))
         if not same_project_name:
             project = {

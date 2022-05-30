@@ -6,25 +6,32 @@ from ..templates import Template
 
 class Routes(Template):
     def __init__(self, token: str) -> None:
-        super().__init__(token, "router", "routes")
+        super().__init__(token, "proxy", "routes")
 
-    def create(self, account_id: str, config: dict) -> dict:
+    def create(self, account_id: str, project: str, service: str, config: dict) -> dict:
         """
-        trying to query for changes?
-        1. watch for db triggers
-        2. retrieve all new documents updatedAt after x (bad practice)
-        @param account_id:
-        @param config:
-        @return:
+        New Route flow
+         1. create new route document
+         2. trigger new route event
+         3. proxy adds new config, if the given domain is accessible via that proxy
+         4. proxy updates the route document
+ 
+        @param account_id: 
+        @param project: 
+        @param service: 
+        @param config: 
+        @return: 
         """
-        user = {
-            "type": "user",
+        route = {
+            "type": "route",
             "id": str(uuid.uuid4()),
             "accountId": account_id,
+            "project": project,
+            "service": service,
             "config": config,
             "updatedAt": int(time.time()),
             "createdAt": int(time.time()),
 
         }
-        self.db.insert([user])
-        return user
+        self.db.insert([route])
+        return route

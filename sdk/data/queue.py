@@ -46,8 +46,6 @@ class Queue:
         while True:
             msg = self.pubsub.get_message()
             if msg:
-                try:
+                if msg["data"] != 1:
                     callback(json.loads(msg["data"].decode("utf-8")))
-                except:
-                    print(f"-- cannot parse message: {msg}")
             time.sleep(sleep)

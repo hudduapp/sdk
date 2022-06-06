@@ -37,14 +37,14 @@ def validate_by_schema(data_schema: dict, data_to_validate: dict) -> Tuple[dict,
             else:
                 errors[key] = "Field is required"
         else:
-            if "default" in data_schema[key]:
-                if key in data_to_validate:
-                    if type(data_to_validate[key]) == data_schema[key]["type"]:
-                        validated_data[key] = data_to_validate[key]
-                    else:
-                        errors[key] = f"Field should be of type '{data_schema[key]['type']}'"
+            if key in data_to_validate:
+                if type(data_to_validate[key]) == data_schema[key]["type"]:
+                    validated_data[key] = data_to_validate[key]
                 else:
-                    validated_data[key] = data_schema[key]["default"]
+                    errors[key] = f"Field should be of type '{data_schema[key]['type']}'"
             else:
-                validated_data[key] = None
+                if "default" in data_schema[key]:
+                    validated_data[key] = data_schema[key]["default"]
+                else:
+                    validated_data[key] = None
     return errors, validated_data

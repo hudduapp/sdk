@@ -1,0 +1,42 @@
+{
+  "_comment": "all permissions:",
+  "token": "your_token",
+  "accounts": {
+    "users": {
+      "read": true,
+      "write": true,
+      "delete": true
+    }
+  },
+  "clusters": {
+    "clusters": {
+      "read": true,
+      "write": true,
+      "delete": true
+    }
+  },
+  "projects": {
+    "projects": {
+      "read": true,
+      "write": true,
+      "delete": true
+    },
+    "services": {
+      "read": true,
+      "write": true,
+      "delete": true
+    },
+    "deployments": {
+      "read": true,
+      "write": true,
+      "delete": true
+    }
+  },
+  "proxy": {
+    "routes": {
+      "read": true,
+      "write": true,
+      "delete": true
+    }
+  }
+}

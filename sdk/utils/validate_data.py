@@ -5,15 +5,15 @@ from typing import Tuple
 def validate_by_schema(data_schema: dict, data_to_validate: dict) -> Tuple[dict, dict]:
     """
     Required fields in the schema:
+
     - required
     - type
-
-    - default is optional and only used if required is false
+    - default (is optional and only used if required is false)
 
 
     Example Schema::
 
-    >>>   schema = {"fieldOne": {"type": dict, "required": True},
+    >>>    schema = {"fieldOne": {"type": dict, "required": True},
     >>>    "fieldTwo": {"type": str, "required": True},
     >>>    "fieldThree": {"type": str, "default": "someUser", "required": False}}
 

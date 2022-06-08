@@ -19,3 +19,8 @@ class LoginAlreadyExistsException(Exception):
 # Projects
 class ProjectNameAlreadyExistsException(Exception):
     pass
+
+
+# Workers
+class WorkerNameAlreadyExistsException(Exception):
+    pass

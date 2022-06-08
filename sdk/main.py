@@ -6,6 +6,7 @@ from .data.routes import Routes
 from .data.services import Services
 from .data.tokens import Tokens
 from .data.users import Users
+from .data.workers import Workers
 from .utils.data import WarehouseConnector
 
 
@@ -13,7 +14,7 @@ class Data:
     def __init__(self, warehouse_token: str, warehouse_url: str = "https://data.huddu.io") -> None:
         self.warehouse_token = warehouse_token
         self.warehouse_url = warehouse_url
-        
+
         self.db = WarehouseConnector("dummy", "dummy", self.warehouse_token)
 
         # internal use only
@@ -29,10 +30,10 @@ class Data:
 
         # accounts
         self.users = Users(self.warehouse_token)
-        # todo: orgs
 
         # clusters
         self.clusters = Clusters(self.warehouse_token)
+        self.workers = Workers(self.warehouse_token)
 
     def health(self):
         return self.db.health()

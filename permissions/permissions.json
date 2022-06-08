@@ -9,7 +9,12 @@
     }
   },
   "clusters": {
-    "clusters": {
+    "workers": {
+      "read": true,
+      "write": true,
+      "delete": true
+    },
+    "proxies": {
       "read": true,
       "write": true,
       "delete": true

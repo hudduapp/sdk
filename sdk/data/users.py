@@ -1,10 +1,10 @@
+import secrets
 import time
 import uuid
 
-from ..utils.hash import hash_password
-from ..utils.exceptions import LoginAlreadyExistsException
-
 from ..templates import Template
+from ..utils.exceptions import LoginAlreadyExistsException
+from ..utils.hash import hash_password
 
 
 class Users(Template):
@@ -40,6 +40,9 @@ class Users(Template):
                 "bitbucketAccountToken": None,
                 # payment
                 "stripeUserId": None,
+                # workers
+                "workersToken": str(secrets.token_hex(16)),
+                "workersTokenExpires": int(time.time() + 60 * 60)  # expires hourly
             }
             self.db.insert([user])
             return user
@@ -55,3 +58,12 @@ class Users(Template):
 
         self.db.update(query, {"$set": new_data})
         return new_data
+
+    def recreate_workers_token(self, query: dict):
+        self.update(
+            query,
+            {
+                "workersToken": str(secrets.token_bytes(16)),
+                "workersTokenExpires": int(time.time() + 60 * 60)
+            }
+        )

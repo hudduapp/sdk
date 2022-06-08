@@ -20,7 +20,7 @@ class Template:
         Dummy method.
         Feel free to create your own method
         """
-        item = {**args, **schema()}
+        item = {**args, **self.schema()}
         self.db.insert([item])
         return item
 

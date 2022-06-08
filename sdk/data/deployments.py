@@ -48,7 +48,7 @@ class Deployments(Template):
             "accountId": account_id,
             "project": project,
             "service": service,
-            "node_id": node_id,
+            "nodeId": node_id,
 
             "currentDeployment": current_deployment,
             "name": name,

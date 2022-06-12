@@ -33,7 +33,9 @@ class Workers(Template):
         :return:
         :rtype:
         """
-        same_worker_name = bool(self.db.retrieve({"nodeId": node_id}))
+        same_worker_name = bool(
+            self.db.retrieve({"nodeId": node_id, "accountId": account_id})
+        )
         if not same_worker_name:
             worker = {
                 "type": "worker",

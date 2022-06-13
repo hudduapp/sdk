@@ -7,16 +7,17 @@ from ..utils.exceptions import WorkerNameAlreadyExistsException
 
 
 class Workers(Template):
-    def __init__(self, token: str) -> None:
-        super().__init__(token, "workers", "workers")
+
+    def __init__(self, token: str, warehouse_url: str) -> None:
+        super().__init__(token, "workers", "workers", warehouse_url=warehouse_url)
 
     def create(
-        self,
-        node_id: str,
-        account_id: str,
-        config: dict,
-        route: str = None,
-        status: str = "IDLE",
+            self,
+            node_id: str,
+            account_id: str,
+            config: dict,
+            route: str = None,
+            status: str = "IDLE",
     ) -> dict:
         """
 

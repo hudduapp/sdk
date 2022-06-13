@@ -8,8 +8,9 @@ from ..utils.hash import hash_password
 
 
 class Users(Template):
-    def __init__(self, token: str) -> None:
-        super().__init__(token, "accounts", "users")
+
+    def __init__(self, token: str, warehouse_url: str) -> None:
+        super().__init__(token, "accounts", "users", warehouse_url=warehouse_url)
 
     def create(self, login: str, password: str, email: str) -> dict:
         same_login_name = bool(self.db.retrieve({"login": login}))

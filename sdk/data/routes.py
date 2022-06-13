@@ -5,8 +5,9 @@ from ..templates import Template
 
 
 class Routes(Template):
-    def __init__(self, token: str) -> None:
-        super().__init__(token, "proxy", "routes")
+
+    def __init__(self, token: str, warehouse_url: str) -> None:
+        super().__init__(token, "proxy", "routes", warehouse_url=warehouse_url)
 
     def create(self, account_id: str, project: str, service: str, config: dict) -> dict:
         """

@@ -1,22 +1,21 @@
+import secrets
 import time
 import uuid
-import secrets
 
 from ..templates import Template
-from ..utils.exceptions import ProjectNameAlreadyExistsException
 
 
 class Tokens(Template):
-    def __init__(self, token: str) -> None:
-        super().__init__(token, "authentication", "tokens")
+    def __init__(self, token: str, warehouse_url: str) -> None:
+        super().__init__(token, "authentication", "tokens", warehouse_url=warehouse_url)
 
     def create(
-        self,
-        account_id: str,
-        description: str = None,
-        scopes: list = [],
-        expires_at: int = None,
-        meta: dict = {},
+            self,
+            account_id: str,
+            description: str = None,
+            scopes: list = [],
+            expires_at: int = None,
+            meta: dict = {},
     ) -> dict:
         token = {
             "type": "token",

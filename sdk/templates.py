@@ -4,16 +4,18 @@ from .utils.exceptions import DbConnectionRequiredException
 
 class Template:
     def __init__(
-            self, token: str, database: str, collection: str, schema=lambda: {}
+            self, token: str, database: str, collection: str, schema=lambda: {},
+            warehouse_url: str = "https://data.huddu.io"
     ) -> None:
         if not collection or not database:
             raise DbConnectionRequiredException
         else:
-            self.db = WarehouseConnector(database, collection, token)
+            self.db = WarehouseConnector(database, collection, token, warehouse_url)
         self.token = token
         self.schema = schema
         self.collection = collection
         self.database = database
+        self.warehouse_url = warehouse_url
 
     def create(self, args: dict) -> dict:
         """

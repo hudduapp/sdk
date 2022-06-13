@@ -6,8 +6,9 @@ from ..templates import Template
 
 
 class Services(Template):
-    def __init__(self, token: str) -> None:
-        super().__init__(token, "projects", "services")
+
+    def __init__(self, token: str, warehouse_url: str) -> None:
+        super().__init__(token, "projects", "services", warehouse_url=warehouse_url)
 
     def create(
             self, name: str, project_id: str, account_id: str, config: dict = {}

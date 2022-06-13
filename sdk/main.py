@@ -15,25 +15,25 @@ class Data:
         self.warehouse_token = warehouse_token
         self.warehouse_url = warehouse_url
 
-        self.db = WarehouseConnector("dummy", "dummy", self.warehouse_token)
+        self.db = WarehouseConnector("dummy", "dummy", self.warehouse_token, self.warehouse_url)
 
         # internal use only
-        self.warehouse_tokens = Tokens(self.warehouse_token)
+        self.warehouse_tokens = Tokens(self.warehouse_token, self.warehouse_url)
 
         # projects
-        self.projects = Projects(self.warehouse_token)
-        self.deployments = Deployments(self.warehouse_token)
-        self.services = Services(self.warehouse_token)
+        self.projects = Projects(self.warehouse_token, self.warehouse_url)
+        self.deployments = Deployments(self.warehouse_token, self.warehouse_url)
+        self.services = Services(self.warehouse_token, self.warehouse_url)
 
         # router
-        self.routes = Routes(self.warehouse_token)
+        self.routes = Routes(self.warehouse_token, self.warehouse_url)
 
         # accounts
-        self.users = Users(self.warehouse_token)
+        self.users = Users(self.warehouse_token, self.warehouse_url)
 
         # clusters
-        self.clusters = Clusters(self.warehouse_token)
-        self.workers = Workers(self.warehouse_token)
+        self.clusters = Clusters(self.warehouse_token, self.warehouse_url)
+        self.workers = Workers(self.warehouse_token, self.warehouse_url)  # todo:remove
 
     def health(self):
         return self.db.health()

@@ -41,9 +41,9 @@ class Users(Template):
                 "bitbucketAccountToken": None,
                 # payment
                 "stripeUserId": None,
-                # workers
-                "workersToken": str(secrets.token_hex(16)),
-                "workersTokenExpires": int(time.time() + 60 * 60)  # expires hourly
+                # integrations (other apis etc.)
+                "integrationToken": str(secrets.token_hex(16)),
+                "integrationTokenExpires": int(time.time() + 60 * 60)  # expires hourly
             }
             self.db.insert([user])
             return user
@@ -64,7 +64,7 @@ class Users(Template):
         self.update(
             query,
             {
-                "workersToken": str(secrets.token_bytes(16)),
-                "workersTokenExpires": int(time.time() + 60 * 60)
+                "integrationToken": str(secrets.token_bytes(16)),
+                "integrationTokenExpires": int(time.time() + 60 * 60)
             }
         )

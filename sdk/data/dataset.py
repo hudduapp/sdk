@@ -33,7 +33,7 @@ class Datasets(Template):
                 "apiEndpoint": apiEndpoint,
                 "apiVersion": apiVersion,
 
-                "tokens": {},
+                "tokens": [],
 
                 "updatedAt": int(time.time()),
                 "createdAt": int(time.time()),

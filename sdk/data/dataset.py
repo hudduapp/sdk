@@ -1,3 +1,4 @@
+import secrets
 import time
 import uuid
 
@@ -54,6 +55,7 @@ class Datasets(Template):
 
                 "apiEndpoint": apiEndpoint,
                 "apiVersion": apiVersion,
+                "apiToken": str(secrets.token_hex(16)),
 
                 "tokens": [],
 

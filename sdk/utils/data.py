@@ -14,7 +14,6 @@ class WarehouseConnector:
             base_url: str = "https://data.huddu.io",
     ) -> None:
         self.token = token
-        print(base_url)
         self.base_url = base_url
         self.database = database
         self.collection = collection
@@ -47,7 +46,6 @@ class WarehouseConnector:
 
     def retrieve(self, query: dict, limit: int = 25, skip: int = 0) -> list:
         try:
-            print(self.base_url)
             return requests.request(
                 "GET",
                 f"{self.base_url}/databases/{self.database}/collections/{self.collection}",

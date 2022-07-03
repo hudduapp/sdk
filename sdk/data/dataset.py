@@ -14,7 +14,7 @@ class Datasets(Template):
             description: str = None
     ) -> dict:
         """
-        
+
         :param name:
         :type name:
         :param account_id:
@@ -32,6 +32,18 @@ class Datasets(Template):
         """
         same_dataset_name = bool(self.db.retrieve({"name": name}))
         if not same_dataset_name:
+            """
+             Tokens should look something like this:
+             [
+                 {
+                     "accountId": "token_account_id",
+                     "token":token, 
+                     "read":bool,
+                     "write":bool,
+                     "delete":bool
+                 }
+             ]
+             """
             dataset = {
                 "type": "dataset",
                 "id": str(uuid.uuid4()),
@@ -42,19 +54,6 @@ class Datasets(Template):
 
                 "apiEndpoint": apiEndpoint,
                 "apiVersion": apiVersion,
-
-                """
-                Tokens should look something like this:
-                [
-                    {
-                        "accountId": "token_account_id",
-                        "token":token, 
-                        "read":bool,
-                        "write":bool,
-                        "delete":bool
-                    }
-                ]
-                """
 
                 "tokens": [],
 

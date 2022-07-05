@@ -11,7 +11,7 @@ class Datasets(Template):
         super().__init__(token, "datasets", "datasets", warehouse_url=warehouse_url)
 
     def create(
-            self, name: str, account_id: str, apiEndpoint: str, apiVersion: float = 1, tags: list = None,
+            self, name: str, account_id: str, apiUrl: str, apiVersion: float = 1, tags: list = None,
             description: str = None
     ) -> dict:
         """
@@ -20,8 +20,8 @@ class Datasets(Template):
         :type name:
         :param account_id:
         :type account_id:
-        :param apiEndpoint:
-        :type apiEndpoint:
+        :param apiUrl:
+        :type apiUrl:
         :param apiVersion:
         :type apiVersion:
         :param tags:
@@ -53,7 +53,7 @@ class Datasets(Template):
                 "tags": tags,
                 "description": description,
 
-                "apiEndpoint": apiEndpoint,
+                "apiUrl": apiUrl,
                 "apiVersion": apiVersion,
                 "apiToken": str(secrets.token_hex(16)),
 

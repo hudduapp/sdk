@@ -66,3 +66,35 @@ class Datasets(Template):
             return dataset
         else:
             raise ProjectNameAlreadyExistsException
+
+    def create_token(self, query: dict, scopes: list, expires: int = 0,
+                     name: str = "unknown", token: str = secrets.token_hex(16)):
+        token = {
+            "name": name,
+            "token": token,
+            "scopes": scopes,
+            "expires": expires,
+            "createdAt": int(time.time())
+        }
+        tokens = self.get(query)["tokens"]
+        tokens.append(token)
+        self.update(
+            query,
+            {
+                "tokens": tokens
+            }
+        )
+
+    def delete_token(self, query: dict, token: str):
+        tokens = self.get(query)["tokens"]
+        token_to_remove = None
+        for i in tokens:
+            if i["token"] == token:
+                token_to_remove = i
+        tokens.remove(token_to_remove)
+        self.update(
+            query,
+            {
+                "tokens": tokens
+            }
+        )

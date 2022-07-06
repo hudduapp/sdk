@@ -1,5 +1,6 @@
 from .data.activity import Activity
 from .data.dataset import Datasets
+from .data.dataset_tokens import DatasetTokens
 from .data.queue import Queue
 from .data.tokens import Tokens
 from .data.users import Users
@@ -21,6 +22,7 @@ class Data:
 
         # datasets
         self.datasets = Datasets(self.warehouse_token, self.warehouse_url)
+        self.datasets_tokens = DatasetTokens(self.warehouse_token, self.warehouse_url)
 
         # events
         self.activity = Activity(self.warehouse_token, self.warehouse_url)

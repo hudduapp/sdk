@@ -9,7 +9,7 @@ class Activity(Template):
         super().__init__(token, "activity", "activity", warehouse_url=warehouse_url)
 
     def create(
-            self, event: str, account_id: str, meta: str
+            self, event: str, account_id: str, meta: dict = {}
     ) -> dict:
         """
 

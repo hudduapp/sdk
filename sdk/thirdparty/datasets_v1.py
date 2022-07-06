@@ -3,6 +3,7 @@ import secrets
 from typing import List
 
 import requests
+from requests import Response
 
 
 class DatasetManager:
@@ -13,6 +14,7 @@ class DatasetManager:
     def create_token(self, name: str, scopes: List[str], expires: int = 0, token: str = secrets.token_hex(16)):
         requests.request(
             "POST", f"{self.dataset_url}/tokens", headers={
+                "Content-Type": "application/json",
                 "Authorization": f"Token {self.dataset_token}"
             },
             data=json.dumps({
@@ -26,9 +28,18 @@ class DatasetManager:
     def delete_token(self, token: str):
         requests.request(
             "DELETE", f"{self.dataset_url}/tokens", headers={
+                "Content-Type": "application/json",
                 "Authorization": f"Token {self.dataset_token}"
             },
             data=json.dumps({
                 "token": token
             })
+        )
+
+    def ping_cluster(self) -> Response:
+        return requests.request(
+            "GET", f"{self.dataset_url}/info", headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Token {self.dataset_token}"
+            }
         )

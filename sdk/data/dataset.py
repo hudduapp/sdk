@@ -3,6 +3,7 @@ import time
 import uuid
 
 from ..templates import Template
+from ..thirdparty.datasets_v1 import DatasetManager
 from ..utils.exceptions import ProjectNameAlreadyExistsException
 
 
@@ -54,7 +55,6 @@ class Datasets(Template):
                 "description": description,
 
                 "apiUrl": apiUrl,
-                "apiVersion": apiVersion,
                 "apiToken": str(secrets.token_hex(16)),
 
                 "tokens": [],
@@ -76,7 +76,8 @@ class Datasets(Template):
             "expires": expires,
             "createdAt": int(time.time())
         }
-        tokens = self.get(query)["tokens"]
+        dataset = self.get(query)
+        tokens = dataset["tokens"]
         tokens.append(token)
         self.update(
             query,
@@ -84,9 +85,20 @@ class Datasets(Template):
                 "tokens": tokens
             }
         )
+        dataset_manager = DatasetManager(
+            dataset["apiUrl"],
+            dataset["apiToken"],
+        )
+        dataset_manager.create_token(
+            name,
+            scopes,
+            expires=expires,
+            token=token
+        )
 
     def delete_token(self, query: dict, token: str):
-        tokens = self.get(query)["tokens"]
+        dataset = self.get(query)
+        tokens = dataset["tokens"]
         token_to_remove = None
         for i in tokens:
             if i["token"] == token:
@@ -97,4 +109,12 @@ class Datasets(Template):
             {
                 "tokens": tokens
             }
+        )
+
+        dataset_manager = DatasetManager(
+            dataset["apiUrl"],
+            dataset["apiToken"],
+        )
+        dataset_manager.delete_token(
+            token
         )

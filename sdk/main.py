@@ -1,6 +1,7 @@
 from .data.activity import Activity
 from .data.dataset import Datasets
 from .data.dataset_tokens import DatasetTokens
+from .data.projects import Projects
 from .data.queue import Queue
 from .data.tokens import Tokens
 from .data.users import Users
@@ -16,6 +17,9 @@ class Data:
 
         # internal use only
         self.warehouse_tokens = Tokens(self.warehouse_token, self.warehouse_url)
+
+        # projects
+        self.projects = Projects(self.warehouse_token, self.warehouse_url)
 
         # accounts
         self.users = Users(self.warehouse_token, self.warehouse_url)

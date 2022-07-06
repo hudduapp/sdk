@@ -11,7 +11,7 @@ class Datasets(Template):
         super().__init__(token, "datasets", "datasets", warehouse_url=warehouse_url)
 
     def create(
-            self, name: str, account_id: str, api_url: str, api_token: str = str(secrets.token_hex(16)),
+            self, name: str, account_id: str, project: str, api_url: str, api_token: str = str(secrets.token_hex(16)),
             tags: list = None,
             description: str = None
     ) -> dict:
@@ -34,22 +34,11 @@ class Datasets(Template):
         """
         same_dataset_name = bool(self.db.retrieve({"name": name}))
         if not same_dataset_name:
-            """
-             Tokens should look something like this:
-             [
-                 {
-                     "accountId": "token_account_id",
-                     "token":token, 
-                     "read":bool,
-                     "write":bool,
-                     "delete":bool
-                 }
-             ]
-             """
             dataset = {
                 "type": "dataset",
                 "id": str(uuid.uuid4()),
                 "accountId": account_id,
+                "project": project,
                 "name": name,
                 "tags": tags,
                 "description": description,

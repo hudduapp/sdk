@@ -1,3 +1,4 @@
+from .data.activity import Activity
 from .data.dataset import Datasets
 from .data.queue import Queue
 from .data.tokens import Tokens
@@ -21,8 +22,12 @@ class Data:
         # datasets
         self.datasets = Datasets(self.warehouse_token, self.warehouse_url)
 
-    def health(self):
-        return self.db.health()
+        # events
+        self.activity = Activity(self.warehouse_token, self.warehouse_url)
+
+
+def health(self):
+    return self.db.health()
 
 
 class Events:

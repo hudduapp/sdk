@@ -50,9 +50,9 @@ class DatasetConsumerLite:
             }
         ).json()
 
-    def run_query(self, query: dict):
+    def run_query(self, data: dict):
         return requests.request(
-            "POST", f"{self.dataset_url}/query", headers={
+            "POST", f"{self.dataset_url}/query", data=data, headers={
                 "Content-Type": "application/json",
                 "Authorization": f"Token {self.dataset_token}"
             }

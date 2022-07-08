@@ -50,10 +50,28 @@ class DatasetConsumerLite:
             }
         ).json()
 
-    def run_query(self, data: dict):
+    def run_query(self, query: dict):
         return requests.request(
-            "POST", f"{self.dataset_url}/query", data=data, headers={
+            "POST", f"{self.dataset_url}/query", data=json.dumps(query), headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Token {self.dataset_token}"
+            }
+        ).json()["items"]
+
+    def upload_file(self, path):
+        return requests.request(
+            "POST", f"{self.dataset_url}/write", data=json.dumps({
+                "file": open(path, "rb")
+            }), headers={
                 "Content-Type": "application/json",
                 "Authorization": f"Token {self.dataset_token}"
             }
         ).json()
+
+    def read_file(self):
+        return requests.request(
+            "POST", f"{self.dataset_url}/read", data=json.dumps(query), headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Token {self.dataset_token}"
+            }
+        )

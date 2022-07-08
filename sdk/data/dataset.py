@@ -82,4 +82,4 @@ class DatasetConsumerLite:
                 "Content-Type": "application/json",
                 "Authorization": f"Token {self.dataset_token}"
             }
-        )
+        ).json()

@@ -36,10 +36,24 @@ class DatasetManager:
             })
         )
 
+
+class DatasetConsumerLite:
+    def __init__(self, dataset_url: str, dataset_token: str):
+        self.dataset_token = dataset_token
+        self.dataset_url = dataset_url
+
     def ping_cluster(self) -> Response:
         return requests.request(
             "GET", f"{self.dataset_url}/info", headers={
                 "Content-Type": "application/json",
                 "Authorization": f"Token {self.dataset_token}"
             }
-        )
+        ).json()
+
+    def run_query(self, query: dict):
+        return requests.request(
+            "POST", f"{self.dataset_url}/query", headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Token {self.dataset_token}"
+            }
+        ).json()

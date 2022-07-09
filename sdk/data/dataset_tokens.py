@@ -48,8 +48,6 @@ class DatasetTokens(Template):
         return token_entry
 
     def delete(self, query: dict):
-        self.db.delete(query)
-
         token = self.get(query)
         dataset = self._datasets.get(
             {"id": token["dataset"]}
@@ -61,3 +59,4 @@ class DatasetTokens(Template):
         dataset_manager.delete_token(
             token["token"]
         )
+        self.db.delete(query)

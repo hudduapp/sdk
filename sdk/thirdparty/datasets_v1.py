@@ -42,7 +42,7 @@ class DatasetConsumerLite:
         self.dataset_token = dataset_token
         self.dataset_url = dataset_url
 
-    def ping_cluster(self) -> Response:
+    def cluster_info(self) -> Response:
         return requests.request(
             "GET", f"{self.dataset_url}/info", headers={
                 "Content-Type": "application/json",

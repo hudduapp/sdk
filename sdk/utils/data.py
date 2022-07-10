@@ -36,7 +36,7 @@ class WarehouseConnector:
     def delete(self, query: dict) -> None:
         try:
             requests.request(
-                "POST",
+                "DELETE",
                 f"{self.base_url}/databases/{self.database}/collections/{self.collection}",
                 data=json.dumps({"query": query}),
                 headers=self.headers,

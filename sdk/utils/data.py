@@ -44,12 +44,14 @@ class WarehouseConnector:
         except:
             raise InvalidPermissionsException
 
-    def retrieve(self, query: dict, limit: int = 25, skip: int = 0) -> list:
+    def retrieve(self, query: dict, sort=None, limit: int = 25, skip: int = 0) -> list:
+        if sort is None:
+            sort = {}
         try:
             return requests.request(
                 "GET",
                 f"{self.base_url}/databases/{self.database}/collections/{self.collection}",
-                data=json.dumps({"query": query, "limit": limit, "skip": skip}),
+                data=json.dumps({"query": query, "limit": limit, "skip": skip, "sort": sort}),
                 headers=self.headers,
             ).json()["items"]
         except:

@@ -8,37 +8,27 @@
       "delete": true
     }
   },
-  "clusters": {
-    "workers": {
-      "read": true,
-      "write": true,
-      "delete": true
-    },
-    "proxies": {
-      "read": true,
-      "write": true,
-      "delete": true
-    }
-  },
   "projects": {
     "projects": {
       "read": true,
       "write": true,
       "delete": true
-    },
-    "services": {
-      "read": true,
-      "write": true,
-      "delete": true
-    },
-    "deployments": {
+    }
+  },
+  "activity": {
+    "activity": {
       "read": true,
       "write": true,
       "delete": true
     }
   },
-  "proxy": {
-    "routes": {
+  "datasets": {
+    "datasets": {
+      "read": true,
+      "write": true,
+      "delete": true
+    },
+    "tokens": {
       "read": true,
       "write": true,
       "delete": true

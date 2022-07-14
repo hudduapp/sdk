@@ -13,11 +13,17 @@ class Projects(Template):
             self, name: str, account_id: str, tags: list = None, description: str = None
     ) -> dict:
         """
-        @param name:
-        @param account_id:
-        @param tags:
-        @param description:
-        @return:
+        
+        :param name:
+        :type name:
+        :param account_id:
+        :type account_id:
+        :param tags:
+        :type tags:
+        :param description:
+        :type description:
+        :return:
+        :rtype:
         """
         same_project_name = bool(self.db.retrieve({"name": name}))
         if not same_project_name:

@@ -21,6 +21,6 @@ class ProjectNameAlreadyExistsException(Exception):
     pass
 
 
-# Workers
-class WorkerNameAlreadyExistsException(Exception):
+# Datasets
+class DatasetAlreadyExistsException(Exception):
     pass

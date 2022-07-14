@@ -1,40 +1,63 @@
 import json
 import secrets
-from typing import List
+import time
+import uuid
 
 import requests
 from requests import Response
 
+from sdk.utils.exceptions import DatasetAlreadyExistsException
+from ..templates import Template
 
-class DatasetManager:
-    def __init__(self, dataset_url: str, dataset_token: str):
-        self.dataset_token = dataset_token
-        self.dataset_url = dataset_url
 
-    def create_token(self, name: str, scopes: List[str], expires: int = 0, token: str = secrets.token_hex(16)):
-        requests.request(
-            "POST", f"{self.dataset_url}/tokens", headers={
-                "Content-Type": "application/json",
-                "Authorization": f"Token {self.dataset_token}"
-            },
-            data=json.dumps({
-                "token": token,
-                "scopes": scopes,
-                "expires": expires,
-                "name": name
-            })
-        )
+class Datasets(Template):
+    def __init__(self, token: str, warehouse_url: str) -> None:
+        super().__init__(token, "datasets", "datasets", warehouse_url=warehouse_url)
 
-    def delete_token(self, token: str):
-        requests.request(
-            "DELETE", f"{self.dataset_url}/tokens", headers={
-                "Content-Type": "application/json",
-                "Authorization": f"Token {self.dataset_token}"
-            },
-            data=json.dumps({
-                "token": token
-            })
-        )
+    def create(
+            self, name: str, account_id: str, project: str, api_url: str, api_token: str = str(secrets.token_hex(16)),
+            tags: list = None,
+            description: str = None
+    ) -> dict:
+        """
+        :param project:
+        :type project:
+        :param name:
+        :type name:
+        :param account_id:
+        :type account_id:
+        :param api_url:
+        :type api_url:
+        :param api_token:
+        :type api_token:
+        :param tags:
+        :type tags:
+        :param description:
+        :type description:
+        :return:
+        :rtype:
+        """
+        same_dataset_name = bool(self.db.retrieve({"name": name}))
+        if not same_dataset_name:
+            dataset = {
+                "type": "dataset",
+                "id": str(uuid.uuid4()),
+                "accountId": account_id,
+                "project": project,
+                "name": name,
+                "tags": tags,
+                "description": description,
+
+                "apiUrl": api_url,
+                "apiToken": api_token,
+
+                "updatedAt": int(time.time()),
+                "createdAt": int(time.time()),
+            }
+            self.db.insert([dataset])
+            return dataset
+        else:
+            raise DatasetAlreadyExistsException
 
 
 class DatasetConsumerLite:

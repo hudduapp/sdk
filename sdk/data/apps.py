@@ -7,7 +7,7 @@ from ..templates import Template
 
 class Apps(Template):
     def __init__(self, token: str, warehouse_url: str) -> None:
-        super().__init__(token, "datasets", "datasets", warehouse_url=warehouse_url)
+        super().__init__(token, "apps", "apps", warehouse_url=warehouse_url)
 
     def create(
             self, name: str, account_id: str, project: str, db_type: str, db_connection_uri: str, tags: list = None,
@@ -37,10 +37,10 @@ class Apps(Template):
         :return:
         :rtype:
         """
-        same_dataset_name = bool(self.db.retrieve({"name": name}))
-        if not same_dataset_name:
-            dataset = {
-                "type": "dataset",
+        same_app_name = bool(self.db.retrieve({"name": name}))
+        if not same_app_name:
+            app = {
+                "type": "app",
                 "id": str(uuid.uuid4()),
                 "accountId": account_id,
                 "project": project,
@@ -57,7 +57,7 @@ class Apps(Template):
                 "updatedAt": int(time.time()),
                 "createdAt": int(time.time()),
             }
-            self.db.insert([dataset])
-            return dataset
+            self.db.insert([app])
+            return app
         else:
             raise AppAlreadyExistsException

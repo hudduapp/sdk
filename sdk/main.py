@@ -1,6 +1,6 @@
 from .data.activity import Activity
-from .data.dataset import Datasets
-from .data.dataset_tokens import DatasetTokens
+
+from .data.apps import Apps
 from .data.projects import Projects
 from .data.queue import Queue
 from .data.tokens import Tokens
@@ -24,9 +24,8 @@ class Data:
         # accounts
         self.users = Users(self.warehouse_token, self.warehouse_url)
 
-        # datasets
-        self.datasets = Datasets(self.warehouse_token, self.warehouse_url)
-        self.datasets_tokens = DatasetTokens(self.warehouse_token, self.warehouse_url)
+        # apps
+        self.apps = Apps(self.warehouse_token, self.warehouse_url)
 
         # events
         self.activity = Activity(self.warehouse_token, self.warehouse_url)

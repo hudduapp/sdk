@@ -22,5 +22,5 @@ class ProjectNameAlreadyExistsException(Exception):
 
 
 # Datasets
-class DatasetAlreadyExistsException(Exception):
+class AppAlreadyExistsException(Exception):
     pass

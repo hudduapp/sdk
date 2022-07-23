@@ -1,5 +1,5 @@
 from .data.activity import Activity
-
+from .data.app_tokens import AppTokens
 from .data.apps import Apps
 from .data.projects import Projects
 from .data.queue import Queue
@@ -26,6 +26,7 @@ class Data:
 
         # apps
         self.apps = Apps(self.warehouse_token, self.warehouse_url)
+        self.app_tokens = AppTokens(self.warehouse_token, self.warehouse_url)
 
         # events
         self.activity = Activity(self.warehouse_token, self.warehouse_url)

@@ -26,8 +26,8 @@ class Data:
         # accounts
         self.users = Users(self.warehouse_token, self.warehouse_url)
 
-        # apps
-        self.apps = Series(self.warehouse_token, self.warehouse_url)
+        # series
+        self.series = Series(self.warehouse_token, self.warehouse_url)
 
         # events
         self.activity = Activity(self.warehouse_token, self.warehouse_url)

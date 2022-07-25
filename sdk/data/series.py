@@ -6,13 +6,15 @@ from ..templates import Template
 
 class Series(Template):
     def __init__(self, token: str, warehouse_url: str) -> None:
-        super().__init__(token, "apps", "apps", warehouse_url=warehouse_url)
+        super().__init__(token, "series", "series", warehouse_url=warehouse_url)
 
     def create(
             self, name: str, account_id: str, project: str, meta: dict
     ) -> dict:
         """
         Meta will hold all the information about how to display this series
+
+        NOTE: series are not saved in the huddu db instead they are saved via the data-api
 
         :param name:
         :param account_id:
@@ -21,8 +23,8 @@ class Series(Template):
         :return:
         """
 
-        app = {
-            "type": "app",
+        series = {
+            "type": "series",
             "id": str(uuid.uuid4()),
             "accountId": account_id,
             "project": project,
@@ -31,5 +33,7 @@ class Series(Template):
             "updatedAt": int(time.time()),
             "createdAt": int(time.time())
         }
-        self.db.insert([app])
-        return app
+        self.db.insert([series])
+        return series
+
+

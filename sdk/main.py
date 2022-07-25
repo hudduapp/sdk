@@ -1,4 +1,5 @@
 from .data.activity import Activity
+from .data.dashboards import Dashboards
 from .data.project_tokens import ProjectTokens
 from .data.projects import Projects
 from .data.queue import Queue
@@ -30,6 +31,9 @@ class Data:
 
         # events
         self.activity = Activity(self.warehouse_token, self.warehouse_url)
+
+        # dashboards
+        self.dashboards = Dashboards(self.warehouse_token, self.warehouse_url)
 
 
 def health(self):

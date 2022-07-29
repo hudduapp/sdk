@@ -10,7 +10,8 @@ class ProjectTokens(Template):
         super().__init__(token, "projects", "tokens", warehouse_url=warehouse_url)
 
     def create(
-            self, name: str, account_id: str, project: str, description: str, scopes: list, series: list
+            self, name: str, account_id: str, project: str, scopes: list, series: list, description: str = None,
+            expires: int = 0
     ) -> dict:
         project_token = {
             "type": "projectToken",
@@ -21,6 +22,7 @@ class ProjectTokens(Template):
             "token": str(secrets.token_hex(16)),
             "scopes": scopes,
             "series": series,  # series == pl of series
+            "expires": expires,
             "createdAt": int(time.time()),
         }
         self.db.insert([project_token])

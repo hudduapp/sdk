@@ -9,8 +9,8 @@ class Series(Template):
         super().__init__(token, "series", "series", warehouse_url=warehouse_url)
 
     def create(
-            self, name: str, account_id: str, project: str, dashboard: str, meta: dict
-    ) -> dict:
+            self, name: str, account_id: str, project: str, dashboard: str, meta: dict = {}
+            , description: str = None) -> dict:
         """
         Meta will hold all the information about how to display this series
 
@@ -21,6 +21,7 @@ class Series(Template):
         :param project:
         :param meta:
         :param dashboard
+        :param description
         :return:
         """
 
@@ -31,6 +32,7 @@ class Series(Template):
             "project": project,
             "dashboard": dashboard,
             "name": name,
+            "description": description,
             "meta": meta,
             "updatedAt": int(time.time()),
             "createdAt": int(time.time())

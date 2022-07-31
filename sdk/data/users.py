@@ -22,28 +22,22 @@ class Users(Template):
                 "password": hash_password(password).decode("utf-8"),
                 # account info
                 "email": email,
-                "verified": False,
-                "emailVerificationId": str(uuid.uuid4()),
+
                 "updatedAt": int(time.time()),
                 "createdAt": int(time.time()),
                 # Settings
-                # notifications
-                "defaultNotificationsEmail": email,
-                "sendNotificationFor": ["newActivity"],
                 "avatarUrl": None,
                 # customization
                 "username": login,
-                "language": None,
                 "appearance": None,
-                # automization
-                "githubAccountToken": None,
-                "gitlabAccountToken": None,
-                "bitbucketAccountToken": None,
                 # payment
                 "stripeUserId": None,
-                # integrations (other apis etc.)
-                "integrationToken": str(secrets.token_hex(16)),
-                "integrationTokenExpires": int(time.time() + 60 * 60)  # expires hourly
+                "subscription": "free",
+                # subscriptions:
+                # 1. free: the default subscription
+                # 2. pro: allows you to share unlimited dashboards & series
+                "seatCount": 0  # how many users can be added to this account
+
             }
             self.db.insert([user])
             return user
